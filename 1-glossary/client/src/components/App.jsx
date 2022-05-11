@@ -1,38 +1,25 @@
-
 import React from "react";
 import { render } from "react-dom";
 
-class App extends React.Component {
+class App extends React.Components {
   constructor(props) {
     super(props);
     this.state = {
-      dictionary: []
+      // counter: 0
     };
     // this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    //TODO: post get function at startup to get all values in database
+
 
   }
 
 
-  render() {
-    return (
-      <div>
-      Hello World
-      <div>FORM - ADD WORDS + DEFINITIONS</div>
-
-      <div>SEARCH - ADD WORDS + DEFINITIONS</div>
-
-      <div>LIST previously stored words and their definitions</div>
-      <div>ENTREE + have a button (edit or delete)</div>
-
-
-
-
-      </div>
-      )
-    }
+  render(
+    <div>
+   Hell World
+    </div>
+    );
 
     //TODO: users should see a list of previously stored words and their definitions
     //Needsa a state for the words and definitions (key/value pair) (stateful)
@@ -50,4 +37,4 @@ class App extends React.Component {
 
   }
 
-  render(<App />, document.getElementById('root'))
+  export default App
