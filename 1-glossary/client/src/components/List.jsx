@@ -13,7 +13,10 @@ function List ({dictionary, searchedList, handleDelete, handleEdit}) {
 
         dictionary.map(entry=> {
           return (
-            <Entry  entry={entry} key={entry._id} handleDelete={handleDelete}
+            <Entry
+            entry={entry}
+            key={entry._id}
+            handleDelete={handleDelete}
             handleEdit={handleEdit}
             />
             )

@@ -4,6 +4,7 @@ import { render } from "react-dom";
 import List from "./components/List.jsx";
 import Search from "./components/Search.jsx";
 import Form from "./components/Form.jsx";
+var _ = require('underscore')
 let axios = require('axios')
 
 
@@ -26,14 +27,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       dictionary: [],
-      searchedList: [
-        {name: 'ataraxia', def: 'state of freedom from emotional disturbance and anxiety'},
-        {name: 'yakka', def: 'work, especially hard work'},
-        {name: 'aver', def: 'assert or affirm with confidence'}
-      ]
+      tempDictionary: []
+
+      // searchedList: [
+      //   {name: 'ataraxia', def: 'state of freedom from emotional disturbance and anxiety'},
+      //   {name: 'yakka', def: 'work, especially hard work'},
+      //   {name: 'aver', def: 'assert or affirm with confidence'}
+      // ]
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleSearch = this.handleSearch.bind(this)
   }
 
   componentDidMount() {
@@ -42,7 +47,8 @@ class App extends React.Component {
     .then((response)=> {
       console.log('data in component', response.data)
       this.setState({
-        dictionary: response.data
+        dictionary: response.data,
+        tempDictionary: response.data
       })
     })
     .catch((err)=> {
@@ -61,7 +67,8 @@ class App extends React.Component {
       .then((response)=> {
         console.log('data in component', response)
         this.setState({
-          dictionary: response.data
+          dictionary: response.data,
+          tempDictionary: response.data
         })
       })
       .catch((err)=> {
@@ -71,6 +78,43 @@ class App extends React.Component {
     })
   }
 
+  handleSearch (e) {
+    // console.log(document.getElementById('search-value').value);
+    console.log(e.target.value);
+    if (e.target.value.length === 0) {
+      // axios.get('/dictionary')
+      // .then((response)=> {
+      //   console.log('data in component', response.data)
+
+      // })
+      // .catch((err)=> {
+      //   console.log(err)
+      // })
+      this.setState({
+        dictionary: this.state.tempDictionary
+      })
+    } else {
+      let searchedList = this.state.tempDictionary
+      let foundList = [];
+      for (let object of searchedList) {
+        let strObj = JSON.stringify(object.name)+ JSON.stringify(object.def)
+
+        console.log(strObj)
+        if(strObj.includes(e.target.value)) {
+          foundList.push(object)
+        }
+        // if (Object.values(object).includes(e.target.value) > -1) {
+        // }
+      }
+
+      this.setState({
+        dictionary: foundList
+      })
+    }
+
+
+
+  }
 
   handleDelete (entryClicked) {
     //TODO: function to handle delete button on entrees
@@ -81,7 +125,8 @@ class App extends React.Component {
       .then((response)=> {
         console.log('data in component', response)
         this.setState({
-          dictionary: response.data
+          dictionary: response.data,
+          tempDictionary: response.data
         })
       })
       .catch((err)=> {
@@ -97,20 +142,32 @@ class App extends React.Component {
     document.getElementById('form-submit-key').value = entryClicked.name;
     let def = document.getElementById('form-submit-def').value = entryClicked.def;
 
-    // axios.post('/delete', entryClicked)
-    // .then(()=> {
-    //   axios.get('/dictionary')
-    //   .then((response)=> {
-    //     console.log('data in component', response)
-    //     this.setState({
-    //       dictionary: response.data
-    //     })
-    //   })
-    //   .catch((err)=> {
-    //     console.log(err)
 
-    //   })
+    // handleDelete(entryClicked);
+
+    // let finishedFirst = new Promise ((resolve, reject)=> {
+    //   handleDelete(entryClicked);
+
+    // });
+
+    // finishedFirst.then(() => {
+    //   console.log('finish')
     // })
+    axios.post('/delete', entryClicked)
+    .then(()=> {
+      axios.get('/dictionary')
+      .then((response)=> {
+        console.log('data in component', response)
+        this.setState({
+          dictionary: response.data,
+          tempDictionary: response.data
+        })
+      })
+      .catch((err)=> {
+        console.log(err)
+
+      })
+    })
 
   }
 
@@ -140,9 +197,14 @@ class App extends React.Component {
       WORDLE???
       <Form handleSubmit={this.handleSubmit}/>
 
-      <Search dictionary={this.state.dictionary} searchedList={this.state.searchedList}/>
+      <Search
+      dictionary={this.state.dictionary}
+      // searchedList={this.state.searchedList}
+      handleSearch={this.handleSearch}/>
 
-      <List dictionary={this.state.dictionary} handleDelete={this.handleDelete}
+      <List
+      dictionary={this.state.dictionary}
+      handleDelete={this.handleDelete}
       handleEdit={this.handleEdit}/>
       </div>
       )
