@@ -26,7 +26,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dictionary: [],
+      dictionary: [
+        // {name: 'ataraxia', def: 'state of freedom from emotional disturbance and anxiety'},
+      ],
       tempDictionary: []
 
       // searchedList: [
@@ -45,7 +47,7 @@ class App extends React.Component {
     //TODO: get axios function at startup to get all values in database
     axios.get('/dictionary')
     .then((response)=> {
-      console.log('data in component', response.data)
+      console.log('data in component', response)
       this.setState({
         dictionary: response.data,
         tempDictionary: response.data
@@ -118,8 +120,8 @@ class App extends React.Component {
 
   handleDelete (entryClicked) {
     //TODO: function to handle delete button on entrees
-    console.log('DELETE STARTED')
-    axios.post('/delete', entryClicked)
+    console.log('DELETE STARTED', entryClicked)
+    axios.post('/dictionary/delete', entryClicked)
     .then(()=> {
       axios.get('/dictionary')
       .then((response)=> {
@@ -142,32 +144,21 @@ class App extends React.Component {
     document.getElementById('form-submit-key').value = entryClicked.name;
     let def = document.getElementById('form-submit-def').value = entryClicked.def;
 
+    // axios.post('/dictionary/edit', entryClicked)
+    // .then(()=> {
+    //   axios.get('/dictionary')
+    //   .then((response)=> {
+    //     console.log('data in component', response)
+    //     this.setState({
+    //       dictionary: response.data,
+    //       tempDictionary: response.data
+    //     })
+    //   })
+    //   .catch((err)=> {
+    //     console.log(err)
 
-    // handleDelete(entryClicked);
-
-    // let finishedFirst = new Promise ((resolve, reject)=> {
-    //   handleDelete(entryClicked);
-
-    // });
-
-    // finishedFirst.then(() => {
-    //   console.log('finish')
+    //   })
     // })
-    axios.post('/delete', entryClicked)
-    .then(()=> {
-      axios.get('/dictionary')
-      .then((response)=> {
-        console.log('data in component', response)
-        this.setState({
-          dictionary: response.data,
-          tempDictionary: response.data
-        })
-      })
-      .catch((err)=> {
-        console.log(err)
-
-      })
-    })
 
   }
 

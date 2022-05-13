@@ -7,23 +7,24 @@ function List ({dictionary, searchedList, handleDelete, handleEdit}) {
   //   console.log(searchedList)
   // };
   // if(searchedList.length === 0) {
-    return (
-      <div className="list">
-      {
+  {console.log(dictionary)}
 
-        dictionary.map(entry=> {
-          return (
-            <Entry
-            entry={entry}
-            key={entry._id}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            />
-            )
-          })
-        }
-        </div>
-        )
+  return (
+    <div className="list">
+    {
+      dictionary.map(entry=> {
+        return (
+          <Entry
+          entry={entry}
+          key={entry.name}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          />
+          )
+        })
+      }
+      </div>
+      )
     }
 
 
