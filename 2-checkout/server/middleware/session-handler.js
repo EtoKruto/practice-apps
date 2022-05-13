@@ -6,6 +6,8 @@ module.exports = (req, res, next) => {
    * Parse cookies in incoming request:
    *
    */
+  //  TODO: By default, every new visitor to the site gets assigned a unique "session_id". This is stored as a cookie in the client's browser and can be read on every request to the server using req.session_id.
+
 
   let cookieString = req.get("Cookie") || "";
 
