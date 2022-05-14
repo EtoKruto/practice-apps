@@ -5,25 +5,27 @@ let Form2 = ({page, handleNext, collectForm2}) => {
 
   return (
     <>
+    <form>
     <div>Line 1</div>
-    <input type="text" id="line1"></input>
+    <input type="text" id="line1" required></input>
     <br></br>
     <div>Line 2 (Apt/Number)</div>
     <input type="text" id="line2"></input>
     <br></br>
     <div>City</div>
-    <input type="text" id="city"></input>
+    <input type="text" id="city" required></input>
     <br></br>
     <div>State</div>
-    <input type="text" id="state"></input>
+    <input type="text" id="state" maxLength='2' required></input>
     <br></br>
     <div>Zipcode</div>
-    <input type="text" id="zipCode"></input>
+    <input type="text" id="zipCode" maxLength='5' required></input>
     <br></br>
     <button onClick={
       ()=>collectForm2()
     }
     >NEXT - Form2</button>
+    </form>
     </>
     )}
 
@@ -32,13 +34,6 @@ let Form2 = ({page, handleNext, collectForm2}) => {
     export default Form2;
 
 
-    // TODO: F1 collects name, email, and password for account creation.
 
 
 
-
-    // TODO: F2 collects ship to address (line 1, line 2, city, state, zip code) and phone number.
-
-
-
-    // TODO: F3 collects credit card #, expiry date, CVV, and billing zip code.

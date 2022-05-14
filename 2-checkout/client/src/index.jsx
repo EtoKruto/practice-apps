@@ -2,6 +2,34 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import Form from './components/Form.jsx'
 const axios = require('axios').default;
+const valid = require("card-validator");
+
+
+let checkIfFilled = function () {
+  let filledArray = [];
+  let inputArray = document.getElementsByTagName("input")
+
+  for(let input of inputArray ) {
+    // if (input.id === 'ccNumber') {
+    //   var numberValidation = valid.number(input.value);
+    //   console.log(numberValidation);
+    //   // input.setAttribute('placeholder', 'FILL THIS OUT');
+    //   filledArray.push(true)
+    // }
+
+    if(input.value.length < 1) {
+      if (input.id !== 'line2') {
+        input.setAttribute('placeholder', 'FILL THIS OUT');
+        filledArray.push(true)
+      } else {
+        input.setAttribute('placeholder', 'this one is optional');
+      }
+    }
+  }
+  return filledArray;
+}
+
+
 
 class App extends React.Component {
   constructor (props) {
@@ -17,13 +45,30 @@ class App extends React.Component {
     this.collectForm2 = this.collectForm2.bind(this)
     this.collectForm3 = this.collectForm3.bind(this)
     this.sendForm = this.sendForm.bind(this)
-
+    this.formatCreditCard = this.formatCreditCard.bind(this)
   }
 
   componentDidMount () {
+    axios.get('/form')
+    .then(()=> {
+      console.log('DidMountSQL')
+    })
+    .catch(()=> {
+      console.log('catch')
+    })
   }
 
-  sendForm () {
+
+  formatCreditCard(id, atLength, max, symbol) {
+    var x = document.getElementById(id);
+    var index = x.value.lastIndexOf(symbol);
+    var test = x.value.substr(index + 1);
+
+    if (test.length === atLength && x.value.length < max)
+    x.value = x.value + symbol;
+  };
+
+  sendForm (e) {
     let userInfo = this.state.userInfo;
     let addressInfo = this.state.addressInfo;
     let ccInfo = this.state.ccInfo;
@@ -60,7 +105,12 @@ class App extends React.Component {
         password: password
       }
     })
-    this.handleNext ();
+
+    if (checkIfFilled().length < 1){
+      this.handleNext ();
+    }
+
+
   };
 
   collectForm2() {
@@ -69,7 +119,7 @@ class App extends React.Component {
     let line2 = document.getElementById("line2").value;
     let city = document.getElementById("city").value;
     let state = document.getElementById("state").value;
-    let zipCode = Number(document.getElementById("zipCode").value);
+    let zipCode = document.getElementById("zipCode").value;
 
 
 
@@ -83,14 +133,18 @@ class App extends React.Component {
       }
     })
 
-    this.handleNext ();
+    if (checkIfFilled().length < 1){
+      this.handleNext ();
+    }
   };
 
   collectForm3() {
 
     let ccNumber = document.getElementById("ccNumber").value;
     let expiryDate = document.getElementById("expiryDate").value;
-    let zipCodeCC = Number(document.getElementById("zipCodeCC").value);
+    let zipCodeCC = document.getElementById("zipCodeCC").value;
+
+    ccNumber = ccNumber.split('-').join('')
 
     this.setState({
       ccInfo: {
@@ -99,7 +153,11 @@ class App extends React.Component {
         zipCodeCC: zipCodeCC
       }
     })
-    this.handleNext ();
+
+
+    if (checkIfFilled().length < 1){
+      this.handleNext ();
+    }
   };
 
   handleNext () {
@@ -129,6 +187,7 @@ class App extends React.Component {
       collectForm2={this.collectForm2}
       collectForm3={this.collectForm3}
       sendForm={this.sendForm}
+      formatCreditCard={this.formatCreditCard}
       />
       </div>
       )

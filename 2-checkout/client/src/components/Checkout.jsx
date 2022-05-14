@@ -20,7 +20,7 @@ let Checkout = ({page, handleNext, userInfo, addressInfo, ccInfo, sendForm}) => 
     <div>PASS: {userInfo.password}</div>
 
     <br></br>
-    <div>{`${addressInfo.line1} ${addressInfo.line2}, ${addressInfo.city}, ${addressInfo.state} ${addressInfo.zipcode}`}</div>
+    <div>{`${addressInfo.line1} ${addressInfo.line2}, ${addressInfo.city}, ${addressInfo.state} ${addressInfo.zipCode}`}</div>
 
     <br></br>
 
@@ -31,7 +31,7 @@ let Checkout = ({page, handleNext, userInfo, addressInfo, ccInfo, sendForm}) => 
     <div>Exp Date: {ccInfo.expiryDate}</div>
 
     <br></br>
-    <div>Zip Code: {ccInfo.zipcode}</div>
+    <div>Zip Code: {ccInfo.zipCodeCC}</div>
     <br></br>
     <button onClick={
       (e)=>{

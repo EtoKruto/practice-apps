@@ -30,7 +30,8 @@ app.post('/form', (req, res) => {
 
   db.insertCustomer(req)
   .then(()=> {
-    console.log('success')
+    console.log('success POST')
+    res.sendStatus(205);
   })
   .catch((err)=> {
     console.log(err)
@@ -39,9 +40,23 @@ app.post('/form', (req, res) => {
   // console.log('req.body', req.body)
   // console.log('req.session_id', req.session_id)
 
-  res.send('hello world')
 })
 
+app.get('/form', (req, res) => {
+
+  db.connectAsync()
+  .then(()=> {
+    console.log('success GET')
+    res.sendStatus(206);
+  })
+  .catch((err)=> {
+    console.log(err)
+  })
+
+  // console.log('req.body', req.body)
+  // console.log('req.session_id', req.session_id)
+
+})
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
