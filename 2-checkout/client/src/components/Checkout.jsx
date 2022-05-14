@@ -10,7 +10,7 @@ let Checkout = ({page, handleNext, userInfo, addressInfo, ccInfo, sendForm}) => 
 
   return (
     <>
-    <h1>CONFIRM THE BELOW INFO BEFORE HITTING BUY</h1>
+    <h2>CONFIRM INFO BELOW INFO BEFORE HITTING BUY</h2>
     <div>NAME: {userInfo.name}</div>
 
     <br></br>

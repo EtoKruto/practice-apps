@@ -13,13 +13,50 @@ const connection = mysql.createConnection({
 const db = Promise.promisifyAll(connection, { multiArgs: true });
 
 db.connectAsync()
-  .then(() => console.log(`Connected to MySQL as id: ${db.threadId}`))
-  .then(() =>
-    // Expand this table definition as needed:
-    db.queryAsync(
-      "CREATE TABLE IF NOT EXISTS responses (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY)"
+.then(() => console.log(`Connected to MySQL as id: ${db.threadId}`))
+.then(() => db.queryAsync(
+  `CREATE TABLE IF NOT EXISTS responses
+  (
+    session_id VARCHAR(100) PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(100),
+    line1 VARCHAR(100),
+    line2 VARCHAR(100),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    zipcode MEDIUMINT,
+    ccNumber VARCHAR(100),
+    expiryDate VARCHAR(100),
+    zipCodeCC MEDIUMINT
     )
-  )
-  .catch((err) => console.log(err));
+    `
+    )
+    )
+    .catch((err) => console.log(err));
 
-module.exports = db;
+    db.insertCustomer = (req) => {
+
+      console.log(req.session_id)
+      return db.queryAsync(
+        `
+        REPLACE INTO responses (session_id, city, zipcode) VALUES ("${req.session_id}", 'hello', 23422);
+        `
+        )
+        .then((err)=> {
+          return console.log(err)
+
+        })
+
+
+
+
+      }
+
+
+
+
+
+
+
+      module.exports = db;

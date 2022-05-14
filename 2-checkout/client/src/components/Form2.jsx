@@ -18,7 +18,7 @@ let Form2 = ({page, handleNext, collectForm2}) => {
     <input type="text" id="state"></input>
     <br></br>
     <div>Zipcode</div>
-    <input type="text" id="zipcode"></input>
+    <input type="text" id="zipCode"></input>
     <br></br>
     <button onClick={
       ()=>collectForm2()

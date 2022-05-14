@@ -13,7 +13,7 @@ let Form3 = ({page, handleNext, collectForm3}) => {
     <input type="text" id="expiryDate"></input>
     <br></br>
     <div>Zip Code</div>
-    <input type="text" id="zipCode"></input>
+    <input type="text" id="zipCodeCC"></input>
     <br></br>
     <button onClick={
       ()=>collectForm3()

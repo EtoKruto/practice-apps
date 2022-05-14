@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import Form from './components/Form.jsx'
-// import Checkout from './components/Checkout.jsx'
+const axios = require('axios').default;
 
 class App extends React.Component {
   constructor (props) {
@@ -33,6 +33,8 @@ class App extends React.Component {
       addressInfo,
       ccInfo
     }
+
+    console.log(allInfo);
 
     axios.post('/form', allInfo)
     .then(()=> {
@@ -67,7 +69,7 @@ class App extends React.Component {
     let line2 = document.getElementById("line2").value;
     let city = document.getElementById("city").value;
     let state = document.getElementById("state").value;
-    let zipcode = document.getElementById("zipcode").value;
+    let zipCode = Number(document.getElementById("zipCode").value);
 
 
 
@@ -77,7 +79,7 @@ class App extends React.Component {
         line2: line2,
         city: city,
         state: state,
-        zipcode: zipcode
+        zipCode: zipCode
       }
     })
 
@@ -88,13 +90,13 @@ class App extends React.Component {
 
     let ccNumber = document.getElementById("ccNumber").value;
     let expiryDate = document.getElementById("expiryDate").value;
-    let zipCode = document.getElementById("zipCode").value;
+    let zipCodeCC = Number(document.getElementById("zipCodeCC").value);
 
     this.setState({
       ccInfo: {
         ccNumber: ccNumber,
         expiryDate: expiryDate,
-        zipCode: zipCode
+        zipCodeCC: zipCodeCC
       }
     })
     this.handleNext ();

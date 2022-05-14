@@ -30,14 +30,3 @@ let Form1 = ({page, collectForm1}) => {
 
   export default Form1;
 
-
-  // TODO: F1 collects name, email, and password for account creation.
-
-
-
-
-  // TODO: F2 collects ship to address (line 1, line 2, city, state, zip code) and phone number.
-
-
-
-  // TODO: F3 collects credit card #, expiry date, CVV, and billing zip code.

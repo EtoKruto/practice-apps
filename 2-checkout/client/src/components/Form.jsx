@@ -3,7 +3,7 @@ import Form2 from './Form2.jsx'
 import Form3 from './Form3.jsx'
 import Checkout from './Checkout.jsx'
 
-let Form = ({page, handleNext, userInfo, addressInfo, ccInfo, collectForm1, collectForm2, collectForm3}) => {
+let Form = ({page, handleNext, userInfo, addressInfo, ccInfo, collectForm1, collectForm2, collectForm3, sendForm}) => {
   console.log('FORM')
   console.log(userInfo)
   console.log(addressInfo)
